@@ -29,9 +29,11 @@ import com.intellectualsites.flags.AbstractFlag;
 import com.intellectualsites.flags.FlagParseException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class EnumFlag<E extends Enum<E>> extends AbstractFlag<E, EnumFlag<E>> {
 
@@ -79,6 +81,10 @@ public abstract class EnumFlag<E extends Enum<E>> extends AbstractFlag<E, EnumFl
             return "";
         }
         return values.toArray()[0].toString();
+    }
+
+    @Override public Collection<String> getValueSuggestions() {
+        return this.values.stream().map(Enum::name).collect(Collectors.toList());
     }
 
 }
